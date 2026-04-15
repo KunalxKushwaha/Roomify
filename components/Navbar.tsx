@@ -1,7 +1,9 @@
 import { Box } from 'lucide-react'
-import React from 'react'
+import Button from './ui/Button';
 
 const Navbar = () => {
+    const isSignedIn = true;
+    const username = 'Kunal';
 
     const handleAuthClick = async () => {
 
@@ -27,11 +29,25 @@ const Navbar = () => {
         </div>
 
         <div className='actions'>
-            <button onClick={handleAuthClick} className='login'>
+
+            {isSignedIn ? (
+                <>
+                <span className='greeting'>
+                    {username ? `Hi, ${username}`: 'Signed in'}</span>
+
+                    <Button size='sm' onClick={handleAuthClick} className='btn'> Logt Out </Button>
+
+                    </>
+            ):(
+                <>
+                 <Button onClick={handleAuthClick} size='sm' variant='ghost'>
                 Login
-            </button>
+            </Button>
+             <a href="#upload" className='cta'>Get Started</a></>
+            )}
+           
             
-            <a href="#upload" className='cta'>Get Started</a>
+           
         </div>
       </nav>
     </header>
