@@ -4,6 +4,9 @@ import Button from "../../components/ui/Button";
 import type { Route } from "./+types/home";
 import Upload from "../../components/Upload";
 import { useNavigate } from "react-router";
+import { useState } from "react";
+import { timeStamp } from "console";
+import { createProject } from "../../lib/puter.action";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -15,11 +18,32 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
 
   const navigate = useNavigate();
+  const [projects, setProjects] = useState<DesignItem[]>([]);
 
   const handleUploadComplete = async (base64Image: string) => {
     const newId = Date.now().toString();
+    const name = `Residense_${newId}`;
 
-    navigate(`/visualizer/${newId}`);
+    const newItem = {
+      id: newId, name, sourceImage: base64Image, renderedImage: undefined, timestamp: Date.now(),
+    }
+
+    const saved = await createProject({item: newItem, visibility: "private"});
+
+    if(!saved) {
+      console.log("Failed to Create Project");
+      return false;
+    }
+
+    setProjects((prev) => [saved, ...prev]);
+
+    navigate(`/visualizer/${newId}`, {
+      state: {
+        initialImage: saved.sourceImage,
+        initialRenderedImage: saved.renderedImage || null,
+        name
+      }
+    });
 
     return true;
   }
@@ -77,9 +101,10 @@ export default function Home() {
           </div>
 
           <div className="projects-grid">
-            <div className="project-card group">
+            {projects.map(({id, name, renderedImage, sourceImage, timestamp}) => (
+              <div className="project-card group">
               <div className="preview">
-                <img src="https://roomify-mlhuk267-dfwu1i.puter.site/projects/1770803585402/rendered.png" alt="Project" />
+                <img src={renderedImage || sourceImage} alt='Project'/>
 
                 <div className="badge">
                   <span>Community</span>
@@ -88,11 +113,11 @@ export default function Home() {
 
               <div className="card-body">
                 <div>
-                  <h3>Project Manhattan</h3>
+                  <h3>{name}</h3>
 
                   <div className="meta">
                     <Clock size={12} />
-                    <span>{new Date('01.01.2027') 
+                    <span>{new Date(timestamp) 
                       .toLocaleDateString()}</span>
 
                       <span>By Kunal</span>
@@ -104,6 +129,9 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
+            ))}
+            
           </div>
         </div>
       </section>
