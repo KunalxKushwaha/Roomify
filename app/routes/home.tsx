@@ -5,7 +5,6 @@ import type { Route } from "./+types/home";
 import Upload from "../../components/Upload";
 import { useNavigate } from "react-router";
 import { useState } from "react";
-import { timeStamp } from "console";
 import { createProject } from "../../lib/puter.action";
 
 export function meta({}: Route.MetaArgs) {
