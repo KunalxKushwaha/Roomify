@@ -34,7 +34,7 @@
 
 ## <a name="introduction">✨ Introduction</a>
 
-AI-powered architectural visualization SaaS built with React, TypeScript, and Puter. Use AI models from Claude to Gemini to transform 2D floor plans into photorealistic 3D renders with permanent hosting and persistent metadata. This project features 2D-to-3D photorealistic rendering, serverless workers, high-performance KV storage, and a Global Community feed.
+AI-powered Architectural Visualization SaaS built with React, TypeScript, and Puter. Use AI models from Claude to Gemini to transform 2D floor plans into photorealistic 3D renders with permanent hosting and persistent metadata. This project features 2D-to-3D photorealistic rendering, serverless workers, high-performance KV storage, and a Global Community feed.
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
 - **[React](https://react.dev/)** is a popular JavaScript library for building user interfaces, specifically for creating single-page applications with a component-based architecture.
